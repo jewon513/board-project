@@ -37,3 +37,5 @@
 * 트랜잭션 설정시 servlet-context에 tx 설정 ( 안하면 Annotation 처리가 먹통이 됨.. 이유를 찾아봐야함 )<br>
   spring에서 transaction은 aop를 사용하고, 인터페이스를 기반으로 클래스를 구현하지 않으면 transaction이 작동하지 않음.<br>
   인터페이스를 사용하지 않을 경우 annotation-driven에서 proxy-target-class의 설정을 true로 변경하고 추가 dependency를 설정해야 한다.
+* srping security CustomUser 구현 (userid, reg_date, update_date 를 가져와서 회원정보 페이지에서 보여줌)
+* 로그인 실패시 로그인 실패 메세지 출력

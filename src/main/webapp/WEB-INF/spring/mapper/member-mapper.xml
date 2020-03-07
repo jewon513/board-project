@@ -4,6 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biz.board.persistence.MemberDao">
 
+	<resultMap type="memberVO" id="memberMap">
+		<id property="userid" column="userid"/>
+		<result property="userid" column="userid"/>
+		<result property="userpw" column="userpw"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="update_date" column="update_date"/>
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+
+	<resultMap type="authVO" id="authMap">
+		<result property="userid" column="userid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+
+	<select id="read" resultMap="memberMap">
+		select
+			mem.userid, userpw, enabled, reg_date, update_date, auth
+		from bbs_user mem left outer join bbs_user_auth auth on mem.userid = auth.userid
+		where mem.userid = #{userid}
+	</select>
+	
+	<update id="updateUserUpdateDate">
+		update bbs_user
+		set update_date = sysdate
+		where userid = #{userid}
+	</update>
+
 	<insert id="insert" parameterType="memberVO">
 		INSERT INTO bbs_user
 		(

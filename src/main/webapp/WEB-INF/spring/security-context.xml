@@ -5,25 +5,35 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
+	<bean id="customUSerDetailService" class="com.biz.board.security.CustomUserDetailsService"></bean>
+	
+	<bean id="customLoginSuccessHandler" class="com.biz.board.security.CustomLoginSuccessHandler"></bean>
 
 	<security:http>
 	
 		<security:intercept-url pattern="/" access="permitAll"/>
 		
 		<security:intercept-url pattern="/list" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/myInfo" access="hasRole('ROLE_ADMIN')"/>
 		
-		<security:form-login login-page="/login"/>
+		<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccessHandler"/>
 		
 		<security:logout logout-success-url="/"/>
 		
 	</security:http>
 	
 	<security:authentication-manager>
-		<security:authentication-provider>
+		<security:authentication-provider user-service-ref="customUSerDetailService">
+			
+			
+			<!--  
 			<security:jdbc-user-service data-source-ref="oracleDS" 
 				users-by-username-query="select userid username, userpw password, enabled from bbs_user where userid = ?"
 				authorities-by-username-query="select userid username, auth authority from bbs_user_auth where userid = ?"
 			/>
+			-->
+			
 			<security:password-encoder ref="bCryptPasswordEncoder"/>
 		</security:authentication-provider>
 	</security:authentication-manager>

@@ -5,4 +5,16 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+	<!-- 로그인 실패시 뜨는 메세지를 한글로 보이게 하기 위한 bean -->		
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>/WEB-INF/message/security_message</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="5"/>
+    </bean>
+
+
 </beans>

@@ -37,7 +37,7 @@
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 						<li class="nav-item"><a class="nav-link logout-link" href="#">Logout</a></li>
 					</form>
-					<li class="nav-item"><a class="nav-link" href="${rootPath}/login">My info</a></li>
+					<li class="nav-item"><a class="nav-link" href="${rootPath}/myInfo">My info</a></li>
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li class="nav-item"><a class="nav-link" href="${rootPath}/login">Manage</a></li>

@@ -16,15 +16,15 @@
 	<!-- Navigation -->
 	<%@ include file="/WEB-INF/views/inlcude/include-navigation.jsp"%>
 
-	<div class="container mb-5">
-		<h2>Error Page</h2>
-		<hr>		
-		<h3>Failed URL : ${url}</h3>
-		<h3>${exception.message}</h3>
-		<hr>
-		<c:forEach items="${exception.stackTrace}" var="ste">
-			${ste}
-		</c:forEach>
+	<div class="container">
+	
+		<h2>회원정보</h2>
+		<hr/>
+		<p>사용자 ID : <sec:authentication property="principal.username"/></p>
+		<p>회원가입 날짜 : <sec:authentication property="principal.memberVO.reg_date"/></p>
+		<p>마지막 로그인 날짜 : <sec:authentication property="principal.memberVO.update_date"/></p>
+		<hr/>
+				
 	</div>
 
 </body>

@@ -31,13 +31,17 @@
 			<div class="login-box ml-auto mr-auto mt-5 mb-5 text-center border border-secondary pt-5 pb-5 pl-3 pr-3">
 				<h2 class="m-3">Login</h2>
 				<div class="form-group">
-					<small class="text-danger">${error}</small>
-				</div>
-				<div class="form-group">
 					<input class="form-control border border-secondary" type="text" placeholder="ID" name="username">
 				</div>
 				<div class="form-group">
 					<input class="form-control border border-secondary" type="password" placeholder="Password" name="password">
+				</div>
+				<div class="form-group text-danger">
+					<small>${error}</small><br>
+					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+						<small>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</small>
+						<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+					</c:if>
 				</div>
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-primary">Login</button>

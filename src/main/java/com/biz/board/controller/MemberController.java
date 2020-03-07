@@ -19,7 +19,13 @@ public class MemberController {
 	MemberService memberService;
 
 	@RequestMapping(value = "login", method=RequestMethod.GET)
-	public String login() {
+	public String login(String error, Model model) {
+		
+		if(error != null) {
+			error = "로그인에 실패하였습니다.";
+		}
+		
+		model.addAttribute("error",error);
 		
 		return "login";
 	}
@@ -37,6 +43,12 @@ public class MemberController {
 		model.addAttribute("message", result);
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "myInfo", method = RequestMethod.GET)
+	public String myInfo() {
+		
+		return "myInfo";
 	}
 	
 	// 이 컨트롤러에서 exception이 발생하면 이 메서드가 실행되고 error page로 이동

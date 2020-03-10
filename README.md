@@ -46,5 +46,34 @@
 	파일 업로드 작업 
 
 ### 2020-03-08
-*
-	
+* 파일 업로드 하기
+* commons-io, commons-fileupload depedency 사용
+* fileup-context에 CommonsMultipartResolver bean 등록
+* servlet-context에 저장할 파일 경로 지정 (로컬에 저장)	
+* spring security 사용 시 ajax로 요청하기 전에 setRequestHeader 값에 토큰을 설정해주어야 함 <br>
+
+    <sec:csrfMetaTags/> 사용 시 
+    
+    <meta name="_csrf_parameter" content="_csrf" />
+    <meta name="_csrf_header" content="X-CSRF-TOKEN" />
+    <meta name="_csrf" content="c8ab0388-08f6-41a7-bf77-c646b6fc5f54" /> 
+    
+         처럼 meta에 설정 된다 
+
+  
+  이후 스크립트에서 아래와 같이 코드 작성 하여 ajax를 요청하기전 header값 세팅 ( 참조 : https://okky.kr/article/325838 ) <br>
+  
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$.ajaxSetup({
+
+	           beforeSend: function(xhr) {
+
+	        	xhr.setRequestHeader(header, token);
+
+	          }
+
+	    });
+ 
+ 

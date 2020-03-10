@@ -1,5 +1,7 @@
 package com.biz.board.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "join", method=RequestMethod.POST)
-	public String join(MemberVO memberVO, Model model) throws Exception {
+	public String join(MemberVO memberVO, Model model) {
 		
 		String result = memberService.join(memberVO);
 		model.addAttribute("message", result);
@@ -65,7 +67,7 @@ public class MemberController {
 	}
 	
 	
-	// 이 컨트롤러에서 exception이 발생하면 이 메서드가 실행되고 error page로 이동
+	//	 이 컨트롤러에서 exception이 발생하면 이 메서드가 실행되고 error page로 이동
 	@ExceptionHandler
 	public String exceptionHandler(HttpServletRequest req,Exception exception, Model model) {
 		

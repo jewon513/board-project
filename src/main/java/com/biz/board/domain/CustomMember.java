@@ -14,6 +14,8 @@ import lombok.Setter;
 @Setter
 public class CustomMember extends User{
 
+	// 유저 Custom하기
+	
 	private static final long serialVersionUID = 1L;
 
 	private MemberVO memberVO;

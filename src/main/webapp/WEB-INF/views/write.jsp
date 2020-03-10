@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" 	uri="http://www.springframework.org/security/tags" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="UTF-8">
+
+<sec:csrfMetaTags/>
+
 
 <%@ include file="/WEB-INF/views/inlcude/include-head.jsp"%>
 
@@ -20,6 +24,20 @@
 
 	$(function(){
 		
+		var token = $("meta[name='_csrf']").attr("content");
+
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$.ajaxSetup({
+
+	           beforeSend: function(xhr) {
+
+	        	xhr.setRequestHeader(header, token);
+
+	          }
+
+	    });
+		
 		$("#b_content").summernote({
 			lang:'ko-KR',
 			placeholder:'본문을 입력하세요',
@@ -29,6 +47,61 @@
 			// 이미지 업로드를 가로챈다.
 			// 드래그 앤 드롭 하면 files에 파일 정보가 저장되고
 			// editor에는 summernote 정보가 저장됨
+			callbacks : {
+				
+				onImageUpload : function(files, editor, isEdite){
+					
+					for(let i = 0 ; i < files.length; i++){
+						upFile(files[i],this) // this = editor
+					}
+					
+				}
+				
+			}
+			
+		}) // end summer
+		
+		
+		function upFile(file,editor){
+			
+			var formData = new FormData()
+			// 앞에는 컨트롤러에서 받을 이름이고 뒤에는 업로드할 file이다.
+			// upFile 변수에 file 정보를 담아서 보내기 위한 준비를 한다.
+			formData.append('upFile', file)
+			
+			$.ajax({
+				url : "${rootPath}/image_up",
+				type : "POST",
+				data : formData,
+				contentType : false,
+				processData : false,
+				enctype : "multipart/form-data",
+				success : function(result){
+					
+					if(result == 'FAIL'){
+						alert("파일 업로드 중 오류가 발생하였습니다.")
+						return false;
+					}
+					
+					alert(result)
+					
+					result = "${rootPath}/files/" + result
+					
+					$(editor).summernote('editor.insertImage',result)
+					
+				},
+				error : function(){
+					alert("서버 통신 오류")
+				}
+				
+			})
+			
+			
+		}
+		
+		$(".btn-list").click(function(){
+			
+			document.location.href = "${rootPath}/list"
 			
 		})
 		

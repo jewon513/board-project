@@ -97,6 +97,22 @@
 			<artifactId>spring-tx</artifactId>
 			<version>5.1.11.RELEASE</version>
 		</dependency>
+		
+		<!-- 파일 업로드에 사용 -->
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<!-- 파일 업로드에 사용 파일 크기 설정하는 부분 반드시 필요 root-context-->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 
 

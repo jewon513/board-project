@@ -20,7 +20,7 @@ public class BoardVO {
 	private String b_write_date;
 	private String b_update_date;
 	private String b_subject;
-	private String b_comment;
+	private String b_content;
 	private String b_writer;
 	private int b_views;
 	

@@ -48,7 +48,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler  
 		// 로그인이 성공했다면 실패 세션을 삭제한다.
 		this.clearAuthenticationAttributes(request);
 
-		
 		// 아래 구현한 method를 통해 어디로 redirect 시킬지 결정한다.
 		this.resultRedirectStrategy(request, response, authentication);
 		

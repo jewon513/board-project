@@ -2,6 +2,7 @@
 
 ## 개요
 * 기존에 연습했던 게시판 구현과 spring security를 적용한 project
+* 매일 조금씩 기록하면서 완성할 계획
 
 ## 환경
 * Spring
@@ -39,3 +40,11 @@
   인터페이스를 사용하지 않을 경우 annotation-driven에서 proxy-target-class의 설정을 true로 변경하고 추가 dependency를 설정해야 한다.
 * srping security CustomUser 구현 (userid, reg_date, update_date 를 가져와서 회원정보 페이지에서 보여줌)
 * 로그인 실패시 로그인 실패 메세지 출력
+* 아직 회원가입시 유효성 검사를 하지 않았음 (프로젝트 마지막에 작업을 할지 생각중)
+* 이후 해야할 일<br>
+	게시판 작업 ( summernote 적용해서 이미지 업로드까지 )
+	파일 업로드 작업 
+
+### 2020-03-08
+*
+	

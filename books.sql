@@ -2,10 +2,10 @@ drop table bbs_board;
 
 create table bbs_board (
     b_id	NUMBER		PRIMARY KEY,
-    b_write_date	DATE	NOT NULL,	
-    b_update_date	DATE	NOT NULL,	
+    b_write_date	DATE  default sysdate	NOT NULL,	
+    b_update_date	DATE  default sysdate NOT NULL,	
     b_subject	nVARCHAR2(255)	NOT NULL	,
-    b_comment	CLOB		,
+    b_content	CLOB		,
     b_writer	VARCHAR2(50)	NOT NULL	,
     b_views	NUMBER		
 );
@@ -64,8 +64,11 @@ create table bbs_recommend (
 create sequence seq_bbs_recommend
 start with 1 increment by 1;
 
-
 ALTER TABLE bbs_board ADD CONSTRAINT FK_BOARD_USER FOREIGN KEY (b_writer) REFERENCES BBS_USER(USERID);
+ALTER TABLE bbs_board MODIFY b_write_date default sysdate;
+ALTER TABLE bbs_board MODIFY b_update_date default sysdate;
+ALTER TABLE bbs_board RENAME COLUMN b_comment to b_content;
+alter table bbs_board drop constraint FK_BOARD_USER;
 
 alter table bbs_comment drop constraint fk_comment_board;
 ALTER TABLE bbs_comment ADD CONSTRAINT FK_COMMENT_BOARD FOREIGN KEY (c_b_id) REFERENCES BBS_BOARD(b_id) on delete cascade;
@@ -83,5 +86,6 @@ ALTER TABLE bbs_recommend add constraint fk_recommend_board foreign key (r_b_id)
 
 alter table bbs_user modify ENABLED char(1) default '1';
 alter table bbs_user modify reg_date date default sysdate;
+
 
 

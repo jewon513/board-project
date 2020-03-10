@@ -3,6 +3,7 @@ package com.biz.board.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,15 +20,27 @@ public class MemberController {
 	MemberService memberService;
 
 	@RequestMapping(value = "login", method=RequestMethod.GET)
-	public String login(String error, Model model) {
+	public String login(String error, Model model, Authentication authentication) {
 		
 		if(error != null) {
 			error = "로그인에 실패하였습니다.";
+			model.addAttribute("error",error);
 		}
 		
-		model.addAttribute("error",error);
+		// 로그인을 했다면 redirect 해서 메인페이지로 이동
+		try {
+			if(authentication.getPrincipal() != null) {
+				return "redirect:/";
+			}
+			// 로그인을 하지 않았다면 nullpointexception이 발생하고 login 페이지로 이동
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "login";
+		}
 		
-		return "login";
+		return "redirect:/";
+		
 	}
 	
 	@RequestMapping(value = "join", method=RequestMethod.GET)
@@ -50,6 +63,7 @@ public class MemberController {
 		
 		return "myInfo";
 	}
+	
 	
 	// 이 컨트롤러에서 exception이 발생하면 이 메서드가 실행되고 error page로 이동
 	@ExceptionHandler

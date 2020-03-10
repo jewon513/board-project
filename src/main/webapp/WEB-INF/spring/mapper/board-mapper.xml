@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biz.board.persistence.BoardDao">
+
+	<select id="findById" resultType="boardVO">
+		SELECT * FROM bbs_board WHERE b_id = #{b_id}
+	</select>
+
+	<select id="selectAll" resultType="boardVO">
+		  SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_UPDATE_DATE, B_WRITER, B_VIEWS
+		  FROM bbs_board
+	</select>
+
+	<insert id="boardWrite" parameterType="boardVO">
+		INSERT INTO bbs_board(
+			B_ID,
+			B_SUBJECT,
+			B_CONTENT,
+			B_WRITER
+		)VALUES(
+			seq_bbs_board.nextval,
+			#{b_subject},
+			#{b_content},
+			#{b_writer}
+		)
+	</insert>
+
+</mapper>

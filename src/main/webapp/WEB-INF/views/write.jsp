@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" 	uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -23,20 +23,6 @@
 <script>
 
 	$(function(){
-		
-		var token = $("meta[name='_csrf']").attr("content");
-
-		var header = $("meta[name='_csrf_header']").attr("content");
-
-		$.ajaxSetup({
-
-	           beforeSend: function(xhr) {
-
-	        	xhr.setRequestHeader(header, token);
-
-	          }
-
-	    });
 		
 		$("#b_content").summernote({
 			lang:'ko-KR',
@@ -121,19 +107,18 @@
 	<div class="container">
 		<h2>글쓰기</h2>
 		<hr>
-		<form method="POST">
+		<form id="write-form" method="POST">
+			
 			<div class="form-group">
-				<input class="form-control border" id="b_subject" name="b_subject" type="text" placeholder="제목">
+				<input class="form-control border" id="b_subject" name="b_subject" type="text" placeholder="제목" value="${boardVO.b_subject}">
 			</div>
 			<div class="form-group">
-				<textarea class="form-control border" id="b_content"  name="b_content" rows="5"></textarea>
+				<textarea class="form-control border" id="b_content"  name="b_content" rows="5">${boardVO.b_content}</textarea>
 			</div>
 			<div class="d-flex justify-content-end">
 				<button class="btn btn-primary btn-save">저장</button>
 			</div>
-			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			
 		</form>
 	</div>
 

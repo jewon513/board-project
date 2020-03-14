@@ -10,13 +10,11 @@
 	
 	<bean id="customLoginSuccessHandler" class="com.biz.board.security.CustomLoginSuccessHandler"></bean>
 
-	<security:http>
-	
-		<security:intercept-url pattern="/" access="permitAll"/>
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/login" access="permitAll"/>
+		<security:intercept-url pattern="/join" access="permitAll"/>
+		<security:intercept-url pattern="/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')"/>
 		
-		<security:intercept-url pattern="/list" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/myInfo" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/write" access="hasRole('ROLE_ADMIN')"/>
 		
 		<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccessHandler"/>
 		

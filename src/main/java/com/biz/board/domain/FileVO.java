@@ -19,4 +19,6 @@ public class FileVO {
 	private String f_uuid_filename;
 	private String f_path;
 	
+	
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biz.board.domain.BoardVO;
+import com.biz.board.domain.PageVO;
 import com.biz.board.persistence.BoardDao;
 
 @Service
@@ -25,15 +26,21 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public String boardUpdate(BoardVO baordVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public String boardUpdate(BoardVO boardVO) {
+		// TODO 글수정
+		
+		boardDao.boardUpdate(boardVO);
+		
+		return "글이 수정되었습니다.";
 	}
 
 	@Override
 	public String boardDelete(long b_id) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO 글삭제
+		
+		boardDao.boardDelete(b_id);
+		
+		return "글이 삭제되었습니다.";
 	}
 
 	@Override
@@ -48,6 +55,20 @@ public class BoardServiceImp implements BoardService {
 
 		return boardDao.findById(b_id);
 		
+	}
+
+	// pagination
+	@Override
+	public List<BoardVO> selectList(PageVO pageVO) {
+		// TODO Auto-generated method stub		
+		
+		return boardDao.selectList(pageVO);
+	}
+
+	@Override
+	public int countAll() {
+		
+		return boardDao.countAll(); 
 	}
 
 }

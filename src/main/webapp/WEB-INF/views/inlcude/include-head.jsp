@@ -4,6 +4,7 @@
 
 
 <meta charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
 
 <title>Insert title here</title>
 
@@ -20,3 +21,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+
+<!-- ajax로 요청하기 위해서는 token 값을 세팅해줘야함 (spring security 사용중) -->
+<script src="${rootPath}/resources/js/ajaxtoken.js"></script>

@@ -1,7 +1,5 @@
 package com.biz.board.controller;
 
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;

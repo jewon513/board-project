@@ -52,13 +52,12 @@
 * servlet-context에 저장할 파일 경로 지정 (로컬에 저장)	
 * spring security 사용 시 ajax로 요청하기 전에 setRequestHeader 값에 토큰을 설정해주어야 함 <br>
 
-    <sec:csrfMetaTags/> 사용 시 
+    <sec:csrfMetaTags/> 
     
     <meta name="_csrf_parameter" content="_csrf" />
     <meta name="_csrf_header" content="X-CSRF-TOKEN" />
     <meta name="_csrf" content="c8ab0388-08f6-41a7-bf77-c646b6fc5f54" /> 
     
-         처럼 meta에 설정 된다 
 
   
   이후 스크립트에서 아래와 같이 코드 작성 하여 ajax를 요청하기전 header값 세팅 ( 참조 : https://okky.kr/article/325838 ) <br>
@@ -77,3 +76,10 @@
 	    });
  
  
+### 2020-03-11
+* 게시글 삭제시 파일 삭제는 미구현
+
+### 2020-03-14
+* 게시글의 댓글은 ajax로 구현, ADMIN은 사용자의 모든 댓글을 다 삭제 수정 할 수 있고, 이외 사용자는 본인의 댓글만 수정 삭제 가능
+* 대댓글은 2단으로 구성, 대댓글이 달려있는 댓글의 경우 삭제되었다는 내용만 보여줌. 대댓글이 없는 경우 댓글 자체를 삭제
+* 페이지네이션 구현

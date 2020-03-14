@@ -29,10 +29,10 @@ public class MemberServiceImp implements MemberService{
 	public String join(MemberVO memberVO) {
 
 		memberVO.setUserpw(bCryptPasswordEncoder.encode(memberVO.getUserpw()));
-		AuthVO authVO = AuthVO.builder().userid(memberVO.getUserid()).auth("ROLE_ADMIN").build();
-		
 		memberDao.insert(memberVO);
 		
+		
+		AuthVO authVO = AuthVO.builder().userid(memberVO.getUserid()).auth("ROLE_MEMBER").build();
 		authDao.insert(authVO);
 			
 		return "회원가입이 정상적으로 완료되었습니다.";

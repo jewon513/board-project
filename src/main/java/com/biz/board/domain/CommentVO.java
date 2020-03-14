@@ -19,6 +19,5 @@ public class CommentVO {
 	private String c_write_date;
 	private String c_writer;
 	private String c_comment;
-	private String c_delete_yn;
 	
 }

@@ -11,6 +11,24 @@
 	<select id="selectAll" resultType="boardVO">
 		  SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_UPDATE_DATE, B_WRITER, B_VIEWS
 		  FROM bbs_board
+		  ORDER BY B_ID DESC
+	</select>
+	
+	<select id="countAll" resultType="INTEGER">
+		SELECT COUNT(*) FROM bbs_board
+	</select>
+	
+	<select id="selectList" resultType="boardVO" parameterType="pageVO">
+		SELECT *
+		FROM(
+			SELECT ROWNUM as rnum, A.B_ID, A.B_SUBJECT, A.B_WRITE_DATE, A.B_WRITER, A.B_VIEWS
+			FROM(
+				SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_WRITER, B_VIEWS
+				FROM bbs_board
+				ORDER BY B_ID DESC
+				) A
+			WHERE ROWNUM &lt;= #{limit}) B
+		WHERE b.rnum &gt;= #{offset}
 	</select>
 
 	<insert id="boardWrite" parameterType="boardVO">
@@ -26,5 +44,19 @@
 			#{b_writer}
 		)
 	</insert>
+	
+	<update id="boardUpdate" parameterType="boardVO">
+		UPDATE bbs_board
+		SET
+			b_update_date = sysdate,
+			b_subject = #{b_subject},
+			b_content = #{b_content}
+		WHERE
+			b_id = #{b_id}
+	</update>
+	
+	<delete id="boardDelete">
+		DELETE FROM bbs_board WHERE b_id = #{b_id}
+	</delete>
 
 </mapper>

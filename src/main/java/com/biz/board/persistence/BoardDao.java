@@ -15,7 +15,8 @@ public interface BoardDao {
 	
 	public List<BoardVO> selectAll();
 	public BoardVO findById(long b_id);
-	public int countAll();
-	public List<BoardVO> selectList(PageVO pageVO);
+	public int boardViewsUpdate(BoardVO boardVO);
+	public int countSelect(@Param("option") String option, @Param("search") String search);
+	public List<BoardVO> selectList(@Param("option") String option, @Param("search") String search, @Param("limit") int limit, @Param("offset") int offset);
 	
 }

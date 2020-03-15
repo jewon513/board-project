@@ -14,8 +14,19 @@
 		  ORDER BY B_ID DESC
 	</select>
 	
-	<select id="countAll" resultType="INTEGER">
+	<select id="countSelect" resultType="INTEGER">
 		SELECT COUNT(*) FROM bbs_board
+		WHERE 1=1
+		<choose>
+			<when test="option == 'subject'">
+				AND b_subject like '%' || #{search} || '%'
+			</when>
+			
+			<when test="option == 'writer'">
+				AND b_writer like '%' || #{search} || '%'
+			</when>
+		</choose>
+		
 	</select>
 	
 	<select id="selectList" resultType="boardVO" parameterType="pageVO">
@@ -25,6 +36,16 @@
 			FROM(
 				SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_WRITER, B_VIEWS
 				FROM bbs_board
+				WHERE 1=1
+				<choose>
+					<when test="option == 'subject'">
+						AND b_subject like '%' || #{search} || '%'
+					</when>
+					
+					<when test="option == 'writer'">
+						AND b_writer like '%' || #{search} || '%'
+					</when>
+				</choose>
 				ORDER BY B_ID DESC
 				) A
 			WHERE ROWNUM &lt;= #{limit}) B
@@ -44,6 +65,16 @@
 			#{b_writer}
 		)
 	</insert>
+	
+	<update id="boardViewsUpdate" parameterType="boardVO">
+	
+		UPDATE bbs_board
+		SET
+			b_views = #{b_views}
+		WHERE
+			b_id = #{b_id}
+	
+	</update>
 	
 	<update id="boardUpdate" parameterType="boardVO">
 		UPDATE bbs_board

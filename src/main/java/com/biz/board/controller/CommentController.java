@@ -49,8 +49,12 @@ public class CommentController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "write", method = RequestMethod.POST)
+	@RequestMapping(value = "write", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String commentWrite(CommentVO commentVO, Authentication authentication) {
+		
+		if(commentVO.getC_comment().trim().isEmpty()) {
+			return "댓글을 입력해주세요.";
+		}
 
 		String userId = authentication.getName();
 

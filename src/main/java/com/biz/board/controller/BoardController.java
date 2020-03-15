@@ -3,11 +3,14 @@ package com.biz.board.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,10 +48,10 @@ public class BoardController {
 				@RequestParam(value = "search", defaultValue = "", required = false) String search
 			) {
 		
-		int totalCount = boardService.countAll();
+		int totalCount = boardService.countSelect(option, search);  
 		PageVO pageVO = pageService.getPagination(totalCount, currentPageNo);
 		
-		List<BoardVO> boardList = boardService.selectList(pageVO);
+		List<BoardVO> boardList = boardService.selectList(option, search, pageVO.getLimit(), pageVO.getOffset());
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", pageVO);
@@ -89,14 +92,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "write", method = RequestMethod.GET)
-	public String boardWrite() {
+	public String boardWrite(BoardVO boardVO) {
 	
 		return "write";
 	}
 	
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String boardWrite(BoardVO boardVO, Authentication authentication) {
+	public String boardWrite(@Valid BoardVO boardVO, Errors errors, Authentication authentication) {
 	
+		if(errors.hasErrors()) {
+			return "write";
+		}
+		
 		// 글을 쓰는 유저의 아이디를 가져오기
 		CustomMember cm = (CustomMember) authentication.getPrincipal();
 		MemberVO memberVO = cm.getMemberVO();
@@ -120,7 +127,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String boardUpdate(BoardVO boardVO) {
+	public String boardUpdate(@Valid BoardVO boardVO, Errors errors) {
+		
+		if(errors.hasErrors()) {
+			return "write";
+		}
 		
 		boardService.boardUpdate(boardVO);
 		

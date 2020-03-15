@@ -18,7 +18,6 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public String boardWrite(BoardVO boardVO) {
 		// TODO 글쓰기
-		// 지금은 글만 쓰지만, 이후에 파일도 같이 업로드 할 경우 트랜잭션 설정 필요
 		
 		boardDao.boardWrite(boardVO);
 		
@@ -53,22 +52,28 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public BoardVO findById(long b_id) {
 
-		return boardDao.findById(b_id);
+		BoardVO boardVO = boardDao.findById(b_id);
+		
+		if(boardVO != null) {
+			boardVO.setB_views(boardVO.getB_views()+1);
+			boardDao.boardViewsUpdate(boardVO);
+		}
+		
+		return boardVO;
 		
 	}
 
-	// pagination
 	@Override
-	public List<BoardVO> selectList(PageVO pageVO) {
-		// TODO Auto-generated method stub		
-		
-		return boardDao.selectList(pageVO);
+	public int countSelect(String option, String search) {
+	
+		return boardDao.countSelect(option, search);
 	}
 
 	@Override
-	public int countAll() {
+	public List<BoardVO> selectList(String option, String search, int limit, int offset) {
+		// TODO Auto-generated method stub
 		
-		return boardDao.countAll(); 
+		return boardDao.selectList(option, search, limit, offset);
 	}
 
 }

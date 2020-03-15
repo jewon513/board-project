@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"  %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -69,8 +70,6 @@
 						return false;
 					}
 					
-					alert(result)
-					
 					result = "${rootPath}/files/" + result
 					
 					$(editor).summernote('editor.insertImage',result)
@@ -93,6 +92,8 @@
 		
 		
 		
+		
+		
 	})
 	
 	
@@ -107,19 +108,19 @@
 	<div class="container">
 		<h2>글쓰기</h2>
 		<hr>
-		<form id="write-form" method="POST">
-			
+		<form:form id="write-form" modelAttribute="boardVO">
 			<div class="form-group">
-				<input class="form-control border" id="b_subject" name="b_subject" type="text" placeholder="제목" value="${boardVO.b_subject}">
+				<form:input class="form-control border" path="b_subject" type="text" placeholder="제목"></form:input>
+				<form:errors class="text-danger" path="b_subject"/>
 			</div>
 			<div class="form-group">
-				<textarea class="form-control border" id="b_content"  name="b_content" rows="5">${boardVO.b_content}</textarea>
+				<form:textarea class="form-control border" path="b_content"></form:textarea>
 			</div>
 			<div class="d-flex justify-content-end">
 				<button class="btn btn-primary btn-save">저장</button>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		</form>
+		</form:form>
 	</div>
 
 </body>

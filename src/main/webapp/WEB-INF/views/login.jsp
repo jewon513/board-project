@@ -10,6 +10,33 @@
 
 </head>
 
+<script type="text/javascript">
+
+	$(function(){
+	
+		$("button").click(function(){
+		
+			if($("#username").val() == ""){
+				alert("아이디를 입력하세요.")
+				return false;
+			}
+			
+			if($("#password").val() == ""){
+				alert("비밀번호를 입력하세요.")
+				return false;
+			}
+			
+			$("form").submit()
+			
+		})
+		
+		
+		
+	})
+	
+
+</script>
+
 <style type="text/css">
 
 	.login-box{
@@ -31,10 +58,10 @@
 			<div class="login-box ml-auto mr-auto mt-5 mb-5 text-center border border-secondary pt-5 pb-5 pl-3 pr-3">
 				<h2 class="m-3">Login</h2>
 				<div class="form-group">
-					<input class="form-control border border-secondary" type="text" placeholder="ID" name="username">
+					<input class="form-control border border-secondary" type="text" placeholder="ID" name="username" id="username">
 				</div>
 				<div class="form-group">
-					<input class="form-control border border-secondary" type="password" placeholder="Password" name="password">
+					<input class="form-control border border-secondary" type="password" placeholder="Password" name="password" id="password">
 				</div>
 				<div class="form-group text-danger">
 					<small>${error}</small><br>
@@ -44,7 +71,7 @@
 					</c:if>
 				</div>
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-primary">Login</button>
+					<button class="btn btn-primary" type="button">Login</button>
 				</div>
 				
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

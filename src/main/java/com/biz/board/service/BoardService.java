@@ -14,8 +14,8 @@ public interface BoardService {
 	public List<BoardVO> selectAll();
 	public BoardVO findById(long b_id);
 	
-	public List<BoardVO> selectList(PageVO pageVO);
-	public int countAll();
+	public int countSelect(String option, String search);
+	public List<BoardVO> selectList(String option, String search, int limit, int offset);
 	
 	
 }

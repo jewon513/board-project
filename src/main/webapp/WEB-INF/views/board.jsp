@@ -46,7 +46,7 @@
 		<c:forEach items="${boardList}" var="vo">
 			<div class="row m-1 board-item" data-id="${vo.b_id}">
 				<div class="col-sm-9">
-					<small class="text-info">#${vo.b_id}</small>
+					<small class="text-info mr-2">#${vo.b_id}</small>
 					<div>${vo.b_subject}</div>
 				</div>
 				<div class="col-sm-3">

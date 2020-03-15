@@ -23,10 +23,6 @@
 		<p>사용자 ID : <sec:authentication property="principal.username"/></p>
 		<p>회원가입 날짜 : <sec:authentication property="principal.memberVO.reg_date"/></p>
 		<p>마지막 로그인 날짜 : <sec:authentication property="principal.memberVO.update_date"/></p>
-		<hr/>
-		<h2>작성한 글</h2>
-		<hr/>
-		<h2>작성한 댓글</h2>
 				
 	</div>
 

@@ -64,7 +64,7 @@
 		<hr>
 		<div class="comment-list">
 			
-			<%@ include file ="/WEB-INF/views/inlcude/include-comment-list.jsp" %>
+			
 		
 		</div>
 	</div>
@@ -148,8 +148,15 @@
 				type : 'POST',
 				success : function(result){
 					
-					alert(result)
-					getCommentList()
+					if(result == 'OK'){
+						getCommentList()
+					}else{
+						alert(result)
+					}
+					
+					$("textarea").val("")
+					
+					
 					
 				},
 				error : function(error){

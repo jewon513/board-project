@@ -87,10 +87,19 @@ ALTER TABLE bbs_file add constraint fk_file_board FOREIGN key (f_b_id) reference
 alter table bbs_recommend drop constraint fk_recommend_user;
 alter table bbs_recommend drop constraint fk_recommend_board;
 ALTER TABLE bbs_recommend add constraint fk_recommend_user foreign key (r_userid) references bbs_user(userid);
-ALTER TABLE bbs_recommend add constraint fk_recommend_board foreign key (r_b_id) references bbs_board(b_id);
+ALTER TABLE bbs_recommend add constraint fk_recommend_board foreign key (r_b_id) references bbs_board(b_id) on delete cascade;
 
 alter table bbs_user modify ENABLED char(1) default '1';
 alter table bbs_user modify reg_date date default sysdate;
 
+INSERT INTO bbs_board (B_ID, B_SUBJECT, B_CONTENT, B_WRITER) VALUES (SEQ_BBS_BOARD.NEXTVAL, '테스트 INSERT', '테스트 INSERT', '테스트');
+INSERT INTO bbs_board (B_ID, B_SUBJECT, B_CONTENT, B_WRITER) VALUES (SEQ_BBS_BOARD.NEXTVAL, '테스트 INSERT', '테스트 INSERT', '테스트');
+INSERT INTO bbs_board (B_ID, B_SUBJECT, B_CONTENT, B_WRITER) VALUES (SEQ_BBS_BOARD.NEXTVAL, '테스트 INSERT', '테스트 INSERT', '테스트');
+INSERT INTO bbs_board (B_ID, B_SUBJECT, B_CONTENT, B_WRITER) VALUES (SEQ_BBS_BOARD.NEXTVAL, '테스트 INSERT', '테스트 INSERT', '테스트');
+INSERT INTO bbs_board (B_ID, B_SUBJECT, B_CONTENT, B_WRITER) VALUES (SEQ_BBS_BOARD.NEXTVAL, '테스트 INSERT', '테스트 INSERT', '테스트');
+COMMIT;
 
+alter table bbs_board add b_recommend number default '0';
+alter table bbs_board add b_reply_count number default '0';
 
+select * from bbs_user a, bbs_user_auth b where a.userid = b.userid;

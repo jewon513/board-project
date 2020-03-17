@@ -29,6 +29,9 @@ public class BoardVO {
 	
 	private String b_writer;
 	private int b_views;
+	
+	private int b_recommend;
+	private int b_reply_count;
 
 	
 	

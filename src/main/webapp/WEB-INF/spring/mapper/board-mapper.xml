@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="selectAll" resultType="boardVO">
-		  SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_UPDATE_DATE, B_WRITER, B_VIEWS
+		  SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_UPDATE_DATE, B_WRITER, B_VIEWS, B_RECOMMEND
 		  FROM bbs_board
 		  ORDER BY B_ID DESC
 	</select>
@@ -32,9 +32,9 @@
 	<select id="selectList" resultType="boardVO" parameterType="pageVO">
 		SELECT *
 		FROM(
-			SELECT ROWNUM as rnum, A.B_ID, A.B_SUBJECT, A.B_WRITE_DATE, A.B_WRITER, A.B_VIEWS
+			SELECT ROWNUM as rnum, A.B_ID, A.B_SUBJECT, A.B_WRITE_DATE, A.B_WRITER, A.B_VIEWS, A.B_RECOMMEND, A.B_REPLY_COUNT
 			FROM(
-				SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_WRITER, B_VIEWS
+				SELECT B_ID, B_SUBJECT, B_WRITE_DATE, B_WRITER, B_VIEWS, B_RECOMMEND, B_REPLY_COUNT
 				FROM bbs_board
 				WHERE 1=1
 				<choose>
@@ -66,11 +66,31 @@
 		)
 	</insert>
 	
+	<update id="boardRecommendUpdate" parameterType="boardVO">
+		
+		UPDATE bbs_board
+		SET
+			b_recommend = #{b_recommend}
+		WHERE
+			b_id = #{b_id}
+		
+	</update>
+	
 	<update id="boardViewsUpdate" parameterType="boardVO">
 	
 		UPDATE bbs_board
 		SET
 			b_views = #{b_views}
+		WHERE
+			b_id = #{b_id}
+	
+	</update>
+	
+	<update id="boardReplyUpdate" parameterType="boardVO">
+	
+		UPDATE bbs_board
+		SET
+			b_reply_count = #{b_reply_count}
 		WHERE
 			b_id = #{b_id}
 	

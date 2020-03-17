@@ -65,6 +65,13 @@
 .login-box {
 	width: 500px;
 }
+
+@media ( min-width : 300px) {
+	.login-box {
+		max-width: 95%;
+	}
+}
+
 </style>
 
 <body>

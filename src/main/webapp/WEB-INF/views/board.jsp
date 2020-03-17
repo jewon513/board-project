@@ -47,7 +47,15 @@
 			<div class="row m-1 board-item" data-id="${vo.b_id}">
 				<div class="col-sm-9">
 					<small class="text-info mr-2">#${vo.b_id}</small>
-					<div>${vo.b_subject}</div>
+					<div>
+						${vo.b_subject}
+						<c:if test="${vo.b_reply_count != 0}">
+							<small class="ml-2"><i class="fas fa-pencil-alt"></i>${vo.b_reply_count}</small>
+						</c:if>	
+						<c:if test="${vo.b_recommend != 0}">
+							<small class="ml-2"><i class="fas fa-thumbs-up"></i>${vo.b_recommend}</small>
+						</c:if>
+					</div>
 				</div>
 				<div class="col-sm-3">
 					<div>${vo.b_writer}</div>

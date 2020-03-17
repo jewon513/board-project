@@ -1,5 +1,7 @@
 package com.biz.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class MemberServiceImp implements MemberService{
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	
+	// 회원 부분
 	@Transactional
 	@Override
 	public String join(MemberVO memberVO) {
@@ -37,6 +41,29 @@ public class MemberServiceImp implements MemberService{
 			
 		return "회원가입이 정상적으로 완료되었습니다.";
 		
+	}
+	
+	
+	
+	// 관리자 부분
+	@Override
+	public List<MemberVO> selectAll() {
+		// TODO Auto-generated method stub
+		List<MemberVO> memberList = memberDao.selectAll();
+		
+		return memberList;
+	}
+
+	@Override
+	public MemberVO findById(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String userEnabledUpdate(String userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

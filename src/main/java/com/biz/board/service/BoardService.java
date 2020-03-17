@@ -16,6 +16,7 @@ public interface BoardService {
 	
 	public int countSelect(String option, String search);
 	public List<BoardVO> selectList(String option, String search, int limit, int offset);
+	public String boardRecommend(String b_id, String name);
 	
 	
 }

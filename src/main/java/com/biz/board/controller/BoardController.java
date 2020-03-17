@@ -51,6 +51,8 @@ public class BoardController {
 		int totalCount = boardService.countSelect(option, search);  
 		PageVO pageVO = pageService.getPagination(totalCount, currentPageNo);
 		
+		log.debug("페이지 PAGEVO : " + pageVO.toString());
+		
 		List<BoardVO> boardList = boardService.selectList(option, search, pageVO.getLimit(), pageVO.getOffset());
 		
 		model.addAttribute("boardList", boardList);
@@ -163,5 +165,14 @@ public class BoardController {
 		}
 		
 		return returnFileName;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "recommend" , method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String boardRecommend(String b_id, Authentication authentication) {
+		
+		String result = boardService.boardRecommend(b_id, authentication.getName());
+		
+		return result;
 	}
 }

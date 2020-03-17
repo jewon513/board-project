@@ -6,42 +6,42 @@
 <head>
 <meta charset="UTF-8">
 
-	<%@ include file = "/WEB-INF/views/inlcude/include-head.jsp"  %>
+<%@ include file="/WEB-INF/views/inlcude/include-head.jsp"%>
 
 </head>
 
 <script type="text/javascript">
+	$(function() {
 
-	$(function(){
-	
-		$("button").click(function(){
-		
-			if($("#username").val() == ""){
+		$(".btn-login").click(function() {
+
+			if ($("#username").val() == "") {
 				alert("아이디를 입력하세요.")
 				return false;
 			}
-			
-			if($("#password").val() == ""){
+
+			if ($("#password").val() == "") {
 				alert("비밀번호를 입력하세요.")
 				return false;
 			}
-			
-			$("form").submit()
-			
-		})
-		
-		
-		
-	})
-	
 
+			$("form").submit()
+
+		})
+
+	})
 </script>
 
 <style type="text/css">
+.login-box {
+	width: 500px;
+}
 
-	.login-box{
-		width: 500px;
+@media ( min-width : 300px) {
+	.login-box {
+		max-width: 95%;
 	}
+}
 
 </style>
 
@@ -49,11 +49,11 @@
 <body>
 
 	<!-- Navigation -->
-	<%@ include file = "/WEB-INF/views/inlcude/include-navigation.jsp"  %>
-	
+	<%@ include file="/WEB-INF/views/inlcude/include-navigation.jsp"%>
+
 	<!-- container -->
 	<div class="container">
-		
+
 		<form action="${rootPath}/login" method="POST">
 			<div class="login-box ml-auto mr-auto mt-5 mb-5 text-center border border-secondary pt-5 pb-5 pl-3 pr-3">
 				<h2 class="m-3">Login</h2>
@@ -67,15 +67,15 @@
 					<small>${error}</small><br>
 					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 						<small>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</small>
-						<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+						<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
 					</c:if>
 				</div>
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-primary" type="button">Login</button>
+					<button class="btn btn-primary btn-login" type="button">Login</button>
 				</div>
-				
+
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				
+
 			</div>
 		</form>
 	</div>

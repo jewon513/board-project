@@ -15,6 +15,8 @@ import com.biz.board.domain.AuthVO;
 import com.biz.board.domain.CommentVO;
 import com.biz.board.domain.CustomMember;
 import com.biz.board.domain.MemberVO;
+import com.biz.board.service.BoardService;
+import com.biz.board.service.BoardServiceImp;
 import com.biz.board.service.CommentService;
 
 @Controller

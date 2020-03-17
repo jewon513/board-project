@@ -7,6 +7,11 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * AJAX으로 이미지 업로드 하는 서비스 클래스
+ * @author jewon
+ *
+ */
 @Service
 public class FileUpService {
 

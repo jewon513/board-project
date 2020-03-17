@@ -41,14 +41,20 @@
 		<c:if test="${boardVO.b_write_date ne boardVO.b_update_date}">
 			<small>수정일자: </small><small class="text-success mr-2">${boardVO.b_update_date}</small>
 		</c:if>
-		<small class=""><i class="far fa-eye"></i>${boardVO.b_views}</small>
+		<small class="mr-2"><i class="far fa-eye"></i>${boardVO.b_views}</small>
+		<c:if test="${boardVO.b_recommend != 0}">
+			<small><i class="fas fa-thumbs-up"></i>${boardVO.b_recommend}</small>
+		</c:if>
 		<hr>
 		<div class="b_content mt-3 mb-3">
 			${boardVO.b_content}
 		</div>
 		<hr>
+		
+		<!-- 버튼 그룹 -->
 		<div class="d-flex justify-content-end">
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
+			<button class="btn btn-success btn-recommend mr-2">추천</button>
 				<c:if test="${userCheck}"> 
 					<button class="btn btn-info btn-update mr-2">수정</button>
 					<button class="btn btn-danger btn-delete mr-2">삭제</button>
@@ -194,6 +200,33 @@
 			
 			
 		})// end comment-item-delete
+		
+		$(".btn-recommend").click(function(){
+			
+			let b_id = '${boardVO.b_id}'
+			
+			$.ajax({
+				
+				url : '${rootPath}/recommend',
+				type : 'POST',
+				data : {b_id : b_id},
+				success : function(result){
+					
+					alert(result)
+					
+				},
+				error : function(error){
+					
+					alert("추천하는 과정에서 오류가 발생하였습니다.")
+					
+				}
+				
+				
+			})
+			
+			
+		})
+		
 		
 		
 		// 댓글 리스트를 가져오는 ajax 요청을 함수로 선언

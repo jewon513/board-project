@@ -8,6 +8,7 @@
 		<id property="userid" column="userid"/>
 		<result property="userid" column="userid"/>
 		<result property="userpw" column="userpw"/>
+		<result property="enabled" column="enabled"/>
 		<result property="reg_date" column="reg_date"/>
 		<result property="update_date" column="update_date"/>
 		<collection property="authList" resultMap="authMap"></collection>
@@ -23,6 +24,12 @@
 			mem.userid, userpw, enabled, reg_date, update_date, auth
 		from bbs_user mem left outer join bbs_user_auth auth on mem.userid = auth.userid
 		where mem.userid = #{userid}
+	</select>
+	
+	<select id="selectAll" resultMap="memberMap">
+		select
+			mem.userid, userpw, enabled, reg_date, update_date, auth
+		from bbs_user mem left outer join bbs_user_auth auth on mem.userid = auth.userid
 	</select>
 	
 	<update id="updateUserUpdateDate">

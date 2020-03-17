@@ -30,7 +30,7 @@ public class PageService {
 			currentPageNo = finalPageNo;
 		}
 		
-		int startPageNo = ((currentPageNo - 1) / 10) * 10 + 1;
+		int startPageNo = ((currentPageNo - 1) / pageCount) * pageCount + 1;
 		int endPageNo = startPageNo + pageCount - 1;
 		if(endPageNo > finalPageNo) {
 			endPageNo = finalPageNo;

@@ -25,8 +25,6 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><a class="nav-link" href="${rootPath}/">Home <span class="sr-only">(current)</span>
-				</a></li>
 				<li class="nav-item"><a class="nav-link" href="${rootPath}/list">Board</a></li>
 				<sec:authorize access="isAnonymous()">
 					<li class="nav-item"><a class="nav-link" href="${rootPath}/login">Login</a></li>
@@ -40,7 +38,7 @@
 					<li class="nav-item"><a class="nav-link" href="${rootPath}/myInfo">My info</a></li>
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li class="nav-item"><a class="nav-link" href="${rootPath}/login">Manage</a></li>
+					<li class="nav-item"><a class="nav-link" href="${rootPath}/admin/">Manage</a></li>
 				</sec:authorize>
 			</ul>
 		</div>

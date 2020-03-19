@@ -37,6 +37,12 @@
 		set update_date = sysdate
 		where userid = #{userid}
 	</update>
+	
+	<update id="updateUserEnabled" parameterType="memberVO">
+		update bbs_user
+		set enabled = #{enabled}
+		where userid = #{userid}
+	</update>
 
 	<insert id="insert" parameterType="memberVO">
 		INSERT INTO bbs_user

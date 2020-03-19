@@ -11,6 +11,7 @@ public interface MemberDao {
 	public int insert(MemberVO memberVO);
 	public void updateUserUpdateDate(String userid);
 	public List<MemberVO> selectAll();
+	public void updateUserEnabled(MemberVO memberVO);
 	
 	
 }

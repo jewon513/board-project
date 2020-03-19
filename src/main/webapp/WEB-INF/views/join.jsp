@@ -18,7 +18,7 @@
 	
 		$(".btn-join").click(function(){
 			
-			let idCheck = /^[a-z0-9_]{5,20}$/;
+			let idCheck = /^[A-Za-z0-9_]{5,20}$/;
 			
 			if($("#userid").val() == ''){
 				alert("아이디는 필수입니다.")
@@ -26,7 +26,7 @@
 			}
 			
 			if(!idCheck.test($("#userid").val())){
-				alert("아이디는 영문과 숫자로 5~20자리어야 합니다.")
+				alert("아이디는 영문,숫자로 5~20자리어야 합니다.")
 				return false;
 			}
 			

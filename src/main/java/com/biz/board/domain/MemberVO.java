@@ -34,7 +34,7 @@ public class MemberVO {
 	
 	private String reg_date;
 	private String update_date;
-	private String enabled;
+	private int enabled;
 	
 	private List<AuthVO> authList;
 

@@ -1,5 +1,6 @@
 package com.biz.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class MemberServiceImp implements MemberService{
 			
 		return "회원가입이 정상적으로 완료되었습니다.";
 		
+	
+		
 	}
 	
 	
@@ -62,8 +65,29 @@ public class MemberServiceImp implements MemberService{
 
 	@Override
 	public String userEnabledUpdate(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO 유저의 권한을 변경하는 method
+		
+		
+		MemberVO memberVO =  memberDao.read(userId);
+		
+		List<AuthVO> authList = memberVO.getAuthList();
+		List<String> userStringAuth = new ArrayList<String>();
+		
+		authList.forEach(vo -> userStringAuth.add(vo.getAuth()));
+		if(userStringAuth.contains("ROLE_ADMIN")) {
+			return "관리자 계정은 비활성화 시킬 수 없습니다.";
+		}
+		
+		if(memberVO.getEnabled() > 0) {
+			memberVO.setEnabled(0);
+			memberDao.updateUserEnabled(memberVO);
+			return "계정이 비활성화 되었습니다.";
+		}else {
+			memberVO.setEnabled(1);
+			memberDao.updateUserEnabled(memberVO);
+			return "계정이 활성화 되었습니다.";
+		}
+
 	}
 
 

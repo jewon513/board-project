@@ -15,7 +15,8 @@ import lombok.Setter;
 public class CustomMember extends User{
 
 	// 유저 Custom하기
-	
+
+
 	private static final long serialVersionUID = 1L;
 
 	private MemberVO memberVO;
@@ -24,6 +25,7 @@ public class CustomMember extends User{
 		super(username, password, authorities);
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public CustomMember(MemberVO vo) {
 		
@@ -33,6 +35,19 @@ public class CustomMember extends User{
 		this.memberVO = vo;
 		
 	}
+
+	@Override
+	public boolean isEnabled() {
+		
+		if(memberVO.getEnabled() > 0) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+
 	
 
 }

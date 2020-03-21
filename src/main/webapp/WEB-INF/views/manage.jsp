@@ -11,6 +11,14 @@
 
 <%@ include file="/WEB-INF/views/inlcude/include-head.jsp"%>
 
+<style>
+
+	tr{
+		cursor: pointer;
+	}
+
+</style>
+
 </head>
 <body>
 
@@ -24,24 +32,35 @@
 			<table class="table table-hover table-sm">
 				<thead class="thead-dark">
 					<tr>
-						<th data-id="userid">UserID</th>
-						<th data-id="reg_date">가입일자</th>
-						<th data-id="update_date">최근로그인 일자</th>
-						<th data-id="enabled">활성화 여부</th>
+						<th width="20%" id="userid" data-id="userid">UserID</th>
+						<th width="30%" id="reg_date" data-id="reg_date">가입일자</th>
+						<th width="30%" id="update_date" data-id="update_date">최근로그인 일자</th>
+						<th width="20%" id="enabled" data-id="enabled">상태</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${memberList}" var="vo">
-						<tr class="userRow" data-id="${vo.userid}">
-							<td>${vo.userid}</td>
-							<td>${vo.reg_date}</td>
-							<td>${vo.update_date}</td>
-							<td>
-								<c:if test="${vo.enabled == 1}">사용</c:if>
-								<c:if test="${vo.enabled == 0}">중지</c:if>
-							</td>
-						</tr>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${memberList eq null}">
+							<tr>
+								<td colspan="4" class="text-center">
+									검색 결과가 없습니다.
+								</td>
+							<tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${memberList}" var="vo">
+								<tr class="userRow" data-id="${vo.userid}">
+									<td>${vo.userid}</td>
+									<td>${vo.reg_date}</td>
+									<td>${vo.update_date}</td>
+									<td>
+										<c:if test="${vo.enabled == 1}">사용</c:if>
+										<c:if test="${vo.enabled == 0}">중지</c:if>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</tbody>
 			</table>
 		</div>
@@ -50,13 +69,13 @@
 		<div class="d-flex justify-content-center">
 			<div>
 				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="${rootPath}/admin/?search=${search}&currentPageNo=${page.prePageNo}">&laquo;</a></li>
+					<li class="page-item"><a class="page-link" href="${rootPath}/admin/?search=${search}&option=${option}&sort=${sort}&currentPageNo=${page.prePageNo}">&laquo;</a></li>
 					<c:forEach begin="${page.startPageNo}" end="${page.endPageNo}" var="pageNo">
 						<li class="page-item 
 							<c:if test="${pageNo == page.currentPageNo}">active</c:if>
-						"><a class="page-link" href="${rootPath}/admin/?search=${search}&currentPageNo=${pageNo}">${pageNo}</a></li>
+						"><a class="page-link" href="${rootPath}/admin/?search=${search}&option=${option}&sort=${sort}&currentPageNo=${pageNo}">${pageNo}</a></li>
 					</c:forEach>
-					<li class="page-item"><a class="page-link" href="${rootPath}/admin/?&search=${search}&currentPageNo=${page.nextPageNo}">&raquo;</a></li>
+					<li class="page-item"><a class="page-link" href="${rootPath}/admin/?&search=${search}&option=${option}&sort=${sort}&currentPageNo=${page.nextPageNo}">&raquo;</a></li>
 				</ul>
 			</div>
 		</div>
@@ -73,6 +92,14 @@
 
 <script>
 	$(function() {
+		
+		$("#${option}").addClass("text-info")
+		if("asc" == '${sort}'){
+			$("#${option}").append("<i class='fas fa-angle-up ml-2'></i>")
+		}else{
+			$("#${option}").append("<i class='fas fa-angle-down ml-2'></i>")
+		}
+		
 
 		$(".userRow").click(function() {
 
@@ -108,8 +135,21 @@
 		$("th").click(function(){
 			
 			let option = $(this).attr("data-id")
+			let sort = "${sort}"
 			
-			location.href="${rootPath}/admin/?search=${search}&currentPageNo=${currentPageNo}&option="+option
+			if(option != "${option}"){
+				sort = "asc"
+			}
+			
+			if(option == "${option}"){
+				if(sort == "asc"){
+					sort = "desc"
+				}else{
+					sort = "asc"
+				}
+			}
+			
+			location.href="${rootPath}/admin/?search=${search}&currentPageNo=${currentPageNo}&option="+option+"&sort="+sort
 			
 		})
 

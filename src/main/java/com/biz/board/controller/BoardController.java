@@ -73,20 +73,21 @@ public class BoardController {
 		BoardVO boardVO = boardService.findById(Long.valueOf(number));
 		
 		// 수정 삭제 버튼은 작성자이거나 ROLE_ADMIN 인 경우만 보여주기
-		CustomMember cm = (CustomMember) authentication.getPrincipal();
-		MemberVO memberVO = cm.getMemberVO();
-		
-		List<AuthVO> authVOList = memberVO.getAuthList();
-		List<String> authList = new ArrayList<String>();
-		
-		for (AuthVO vo : authVOList) {
-			authList.add(vo.getAuth());
-		}
-		
-		if(boardVO.getB_writer().equals(memberVO.getUserid()) || authList.contains("ROLE_ADMIN")) {
-			model.addAttribute("userCheck", true);
-		}
+		if(authentication != null) {
+			CustomMember cm = (CustomMember) authentication.getPrincipal();
+			MemberVO memberVO = cm.getMemberVO();
 			
+			List<AuthVO> authVOList = memberVO.getAuthList();
+			List<String> authList = new ArrayList<String>();
+			
+			for (AuthVO vo : authVOList) {
+				authList.add(vo.getAuth());
+			}
+			
+			if(boardVO.getB_writer().equals(memberVO.getUserid()) || authList.contains("ROLE_ADMIN")) {
+				model.addAttribute("userCheck", true);
+			}
+		}
 		
 		model.addAttribute("boardVO", boardVO);
 

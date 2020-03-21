@@ -34,7 +34,7 @@ public class AdminController {
 			@RequestParam(value ="search", required = false, defaultValue = "") String search,
 			@RequestParam(value ="currentPageNo", required = false, defaultValue ="1") int currentPageNo,
 			@RequestParam(value ="option", required = false, defaultValue = "reg_date") String option,
-			@RequestParam(value ="sort", required= false, defaultValue = "") String solt) {
+			@RequestParam(value ="sort", required= false, defaultValue = "desc") String sort) {
 		
 		int totalCount = memberService.getTotalCount(search);
 		
@@ -42,7 +42,7 @@ public class AdminController {
 		
 		List<MemberVO> memberList = null;
 		if(pageVO != null) {
-			memberList = memberService.selectList(pageVO, search, option, solt);
+			memberList = memberService.selectList(pageVO, search, option, sort);
 		}
 		
 		model.addAttribute("memberList", memberList);
@@ -50,7 +50,7 @@ public class AdminController {
 		model.addAttribute("search", search);
 		model.addAttribute("currentPageNo", currentPageNo);
 		model.addAttribute("option", option);
-		model.addAttribute("solt", solt);
+		model.addAttribute("sort", sort);
 		
 		return "manage";
 	}

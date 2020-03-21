@@ -110,9 +110,9 @@ public class MemberServiceImp implements MemberService{
 		return memberDao.getTotalCount(search);
 	}
 	@Override
-	public List<MemberVO> selectList(PageVO pageVO, String search, String option, String solt) {
+	public List<MemberVO> selectList(PageVO pageVO, String search, String option, String sort) {
 
-		List<MemberVO> selectList = memberDao.selectList(pageVO.getOffset(), pageVO.getLimit(), search, option, solt);
+		List<MemberVO> selectList = memberDao.selectList(pageVO.getOffset(), pageVO.getLimit(), search, option, sort);
 		
 		return selectList;
 	}

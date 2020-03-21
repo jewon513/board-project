@@ -11,7 +11,7 @@ public interface MemberService {
 	
 	
 	public List<MemberVO> selectAll();
-	public List<MemberVO> selectList(PageVO pageVO, String search, String option, String solt);
+	public List<MemberVO> selectList(PageVO pageVO, String search, String option, String sort);
 	public MemberVO findById(String userId);
 	public int getTotalCount(String search);
 	

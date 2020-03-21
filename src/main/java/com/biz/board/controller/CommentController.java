@@ -31,21 +31,23 @@ public class CommentController {
 
 		List<CommentVO> commentList = commentServiceImp.findByBId(Long.valueOf(b_id));
 
-		CustomMember cm = (CustomMember) authentication.getPrincipal();
-		MemberVO memberVO = cm.getMemberVO();
-		
-		List<AuthVO> authVOList = memberVO.getAuthList();
-		List<String> authList = new ArrayList<String>();
-		
-		for (AuthVO vo : authVOList) {
-			authList.add(vo.getAuth());
+		if(authentication != null) {
+			CustomMember cm = (CustomMember) authentication.getPrincipal();
+			MemberVO memberVO = cm.getMemberVO();
+			
+			List<AuthVO> authVOList = memberVO.getAuthList();
+			List<String> authList = new ArrayList<String>();
+			
+			for (AuthVO vo : authVOList) {
+				authList.add(vo.getAuth());
+			}
+			
+			model.addAttribute("loginUserId", authentication.getName());
+			model.addAttribute("loginUserAuth", authList.contains("ROLE_ADMIN"));
 		}
 		
 		// admin 권한이 있는 사람은 모든 댓글을 삭제 수정 할 수 있음. jsp에서 true값으로 판단함.
 		model.addAttribute("commentList", commentList);
-		model.addAttribute("loginUserId", authentication.getName());
-		model.addAttribute("loginUserAuth", authList.contains("ROLE_ADMIN"));
-		
 
 		return "inlcude/include-comment-list";
 	}

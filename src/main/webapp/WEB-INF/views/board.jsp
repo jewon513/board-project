@@ -43,26 +43,37 @@
 		<h2>게시판</h2>
 		<hr>
 
-		<c:forEach items="${boardList}" var="vo">
-			<div class="row m-1 board-item" data-id="${vo.b_id}">
-				<div class="col-sm-9">
-					<small class="text-info mr-2">#${vo.b_id}</small>
-					<div>
-						${vo.b_subject}
-						<c:if test="${vo.b_reply_count != 0}">
-							<small class="ml-2"><i class="fas fa-pencil-alt"></i>${vo.b_reply_count}</small>
-						</c:if>	
-						<c:if test="${vo.b_recommend != 0}">
-							<small class="ml-2"><i class="fas fa-thumbs-up"></i>${vo.b_recommend}</small>
-						</c:if>
+		<c:choose>
+			<c:when test="${boardList eq null}">
+				<div class="text-center p-5">
+					<p>검색 결과가 없습니다.</p>
+				</div>
+			</c:when>
+			
+			<c:otherwise>
+				<c:forEach items="${boardList}" var="vo">
+					<div class="row m-1 board-item" data-id="${vo.b_id}">
+						<div class="col-sm-9">
+							<small class="text-info mr-2">#${vo.b_id}</small>
+							<div>
+								${vo.b_subject}
+								<c:if test="${vo.b_reply_count != 0}">
+									<small class="ml-2"><i class="fas fa-pencil-alt"></i>${vo.b_reply_count}</small>
+								</c:if>	
+								<c:if test="${vo.b_recommend != 0}">
+									<small class="ml-2"><i class="fas fa-thumbs-up"></i>${vo.b_recommend}</small>
+								</c:if>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div>${vo.b_writer}</div>
+							<small class="text-success">${vo.b_write_date}</small>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-3">
-					<div>${vo.b_writer}</div>
-					<small class="text-success">${vo.b_write_date}</small>
-				</div>
-			</div>
-		</c:forEach>
+				</c:forEach>		
+			</c:otherwise>
+		
+		</c:choose>
 
 		<hr>
 
@@ -91,10 +102,12 @@
 				<input class="form-control col-6 border" placeholder="search" name="search">
 			</form>
 		</div>
-
-		<div class="d-flex justify-content-end">
-			<button class="btn btn-primary btn-write">글쓰기</button>
-		</div>
+		
+		<sec:authorize access="isAuthenticated()">
+			<div class="d-flex justify-content-end">
+				<button class="btn btn-primary btn-write">글쓰기</button>
+			</div>
+		</sec:authorize>
 	</div>
 
 </body>

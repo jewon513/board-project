@@ -10,13 +10,20 @@
 	
 	<bean id="customLoginSuccessHandler" class="com.biz.board.security.CustomLoginSuccessHandler"></bean>
 
-	<security:http use-expressions="true">
-		<security:intercept-url pattern="/idCheck" access="permitAll"/>
-		<security:intercept-url pattern="/login" access="permitAll"/>
-		<security:intercept-url pattern="/join" access="permitAll"/>
-		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')"/>
+	<security:http use-expressions="true">		
 		
+		<security:intercept-url pattern="/comment/list" access="permitAll()"/>
+		<security:intercept-url pattern="/write" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/update" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/delete" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/image_up" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/recommend" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/idCheck" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/myInfo" access="isAuthenticated()"/>
+		
+		<security:intercept-url pattern="/comment/**" access="isAuthenticated()"/>
+		
+		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
 		
 		
 		<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccessHandler"/>

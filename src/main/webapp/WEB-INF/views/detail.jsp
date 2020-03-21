@@ -53,7 +53,7 @@
 		
 		<!-- 버튼 그룹 -->
 		<div class="d-flex justify-content-end">
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
+			<sec:authorize access="isAuthenticated()">
 			<button class="btn btn-success btn-recommend mr-2">추천</button>
 				<c:if test="${userCheck}"> 
 					<button class="btn btn-info btn-update mr-2">수정</button>
@@ -76,21 +76,23 @@
 	</div>
 	
 	<!--  comment write -->
-	<div class="container mb-5">
-		<h2>comment write</h2>
-		<hr>
-		<form id="comment-form">
-		
-			<input type="hidden" name="c_b_id" value="${boardVO.b_id}">
-		
-			<div class="form-group">
-				<textarea name="c_comment" class="form-control comment-content" rows="5" placeholder="댓글을 입력하세요.."></textarea>
-			</div>
-			<div class="d-flex justify-content-end">
-				<button class="btn btn-primary btn-comment-write" type="button">저장</button>
-			</div>	
-		</form>
-	</div>
+	<sec:authorize access="isAuthenticated()">
+		<div class="container mb-5">
+			<h2>comment write</h2>
+			<hr>
+			<form id="comment-form">
+			
+				<input type="hidden" name="c_b_id" value="${boardVO.b_id}">
+			
+				<div class="form-group">
+					<textarea name="c_comment" class="form-control comment-content" rows="5" placeholder="댓글을 입력하세요.."></textarea>
+				</div>
+				<div class="d-flex justify-content-end">
+					<button class="btn btn-primary btn-comment-write" type="button">저장</button>
+				</div>	
+			</form>
+		</div>
+	</sec:authorize>
 
 </body>
 

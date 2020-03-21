@@ -44,7 +44,7 @@
 				SELECT USERID, REG_DATE, UPDATE_DATE, ENABLED 
 				FROM BBS_USER
 				WHERE USERID LIKE '%' || #{search} || '%'
-				ORDER BY ${option} ${solt}
+				ORDER BY ${option} ${sort}
 				) A
 			WHERE ROWNUM &lt;= #{limit}
 			) B

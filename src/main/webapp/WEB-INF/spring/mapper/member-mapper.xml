@@ -32,6 +32,26 @@
 		from bbs_user mem left outer join bbs_user_auth auth on mem.userid = auth.userid
 	</select>
 	
+	<select id="getTotalCount" resultType="Integer">
+		SELECT COUNT(*) FROM BBS_USER WHERE userid like '%' || #{search} || '%'
+	</select>
+	
+	<select id="selectList" resultType="memberVO">
+		SELECT * 
+		FROM(
+			SELECT ROWNUM as RNUM, A.USERID, A.REG_DATE, A.UPDATE_DATE, A.ENABLED
+			FROM(
+				SELECT USERID, REG_DATE, UPDATE_DATE, ENABLED 
+				FROM BBS_USER
+				WHERE USERID LIKE '%' || #{search} || '%'
+				ORDER BY ${option} ${solt}
+				) A
+			WHERE ROWNUM &lt;= #{limit}
+			) B
+		WHERE B.RNUM &gt;= #{offset}
+	</select>
+
+	
 	<update id="updateUserUpdateDate">
 		update bbs_user
 		set update_date = sysdate

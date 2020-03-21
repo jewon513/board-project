@@ -9,10 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.board.domain.MemberVO;
 import com.biz.board.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class MemberController {
 	
@@ -60,6 +64,21 @@ public class MemberController {
 		model.addAttribute("message", result);
 		
 		return "home";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="idCheck", method = RequestMethod.POST)
+	public String userDuplicateCheck(String userid) {
+		
+		boolean result = memberService.duplicateCheck(userid);
+		
+		if(result) {
+			return "OK";
+		}else {
+			return "FALSE";
+		}
+			
+		
 	}
 	
 	@RequestMapping(value = "myInfo", method = RequestMethod.GET)

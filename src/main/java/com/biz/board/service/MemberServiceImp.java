@@ -6,15 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.biz.board.domain.AuthVO;
 import com.biz.board.domain.MemberVO;
+import com.biz.board.domain.PageVO;
 import com.biz.board.persistence.AuthDao;
 import com.biz.board.persistence.MemberDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MemberServiceImp implements MemberService{
 
@@ -44,6 +46,18 @@ public class MemberServiceImp implements MemberService{
 		
 	
 		
+	}
+	@Override
+	public boolean duplicateCheck(String userid) {
+		// TODO Auto-generated method stub
+		
+		MemberVO memberVO = memberDao.read(userid);
+		
+		if(memberVO == null) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	
@@ -89,6 +103,23 @@ public class MemberServiceImp implements MemberService{
 		}
 
 	}
+	
+	@Override
+	public int getTotalCount(String search) {
+		
+		return memberDao.getTotalCount(search);
+	}
+	@Override
+	public List<MemberVO> selectList(PageVO pageVO, String search, String option, String solt) {
+
+		List<MemberVO> selectList = memberDao.selectList(pageVO.getOffset(), pageVO.getLimit(), search, option, solt);
+		
+		return selectList;
+	}
+
+
+
+	
 
 
 }

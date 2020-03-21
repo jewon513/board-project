@@ -8,7 +8,7 @@ import com.biz.board.domain.PageVO;
 public class PageService {
 
 	private int listPerPage = 10;
-	private int pageCount = 5;
+	private int pageCount = 10;
 	
 	public PageVO getPagination(int totalCount, int currentPageNo) {
 		

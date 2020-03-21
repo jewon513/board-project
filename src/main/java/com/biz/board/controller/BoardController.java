@@ -51,9 +51,11 @@ public class BoardController {
 		int totalCount = boardService.countSelect(option, search);  
 		PageVO pageVO = pageService.getPagination(totalCount, currentPageNo);
 		
-		log.debug("페이지 PAGEVO : " + pageVO.toString());
 		
-		List<BoardVO> boardList = boardService.selectList(option, search, pageVO.getLimit(), pageVO.getOffset());
+		List<BoardVO> boardList = null;
+		if(pageVO != null) {
+			boardList = boardService.selectList(option, search, pageVO.getLimit(), pageVO.getOffset());
+		}
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", pageVO);

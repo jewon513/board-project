@@ -14,7 +14,17 @@
 	$(function() {
 
 		$(".btn-login").click(function() {
-
+			login()
+		})
+		
+		$("input").keydown(function(key){
+			if(key.keyCode == 13){
+				login()
+			}
+		})
+		
+		function login (){
+			
 			if ($("#username").val() == "") {
 				alert("아이디를 입력하세요.")
 				return false;
@@ -26,8 +36,8 @@
 			}
 
 			$("form").submit()
-
-		})
+			
+		}
 
 	})
 </script>

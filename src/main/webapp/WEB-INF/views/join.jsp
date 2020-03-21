@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"  %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix ="sec"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="UTF-8">
+<sec:csrfMetaTags/>
 
 <%@ include file="/WEB-INF/views/inlcude/include-head.jsp"%>
 
@@ -17,6 +19,18 @@
 	$(function(){
 	
 		$(".btn-join").click(function(){
+			
+			join()
+			
+		})
+		
+		$("input").keydown(function(key){
+			if(key.keyCode == 13){
+				join()
+			}
+		})
+		
+		function join(){
 			
 			let idCheck = /^[A-Za-z0-9_]{5,20}$/;
 			
@@ -50,9 +64,27 @@
 				return false;
 			}
 			
-			$("form").submit()
 			
-		})
+			let userid = $("#userid").val()
+			
+			$.ajax({
+				
+				url : "${rootPath}/idCheck",
+				data : {userid : userid},
+				type : "POST",
+				success : function(result){
+					if(result == "OK"){
+						$("form").submit()
+					}else{
+						alert("이미 사용중인 ID 입니다.")
+					}
+				},
+				error : function(error){
+					alert("서버 통신 오류")
+				}
+				
+			})
+		}
 		
 		
 		

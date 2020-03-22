@@ -27,7 +27,7 @@ public class BoardServiceImp implements BoardService {
 		
 		boardDao.boardWrite(boardVO);
 		
-		return "글이 저장되었습니다.";
+		return null;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class BoardServiceImp implements BoardService {
 		
 		boardDao.boardUpdate(boardVO);
 		
-		return "글이 수정되었습니다.";
+		return null;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class BoardServiceImp implements BoardService {
 		
 		boardDao.boardDelete(b_id);
 		
-		return "글이 삭제되었습니다.";
+		return null;
 	}
 
 	@Override

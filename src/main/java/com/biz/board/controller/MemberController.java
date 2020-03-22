@@ -24,26 +24,13 @@ public class MemberController {
 	MemberService memberService;
 
 	@RequestMapping(value = "login", method=RequestMethod.GET)
-	public String login(String error, Model model, Authentication authentication) {
+	public String login(Model model, Authentication authentication) {
 		
-		if(error != null) {
-			error = "로그인에 실패하였습니다.";
-			model.addAttribute("error",error);
+		if(authentication != null) {
+			return "redirect:/";
 		}
 		
-		// 로그인을 했다면 redirect 해서 메인페이지로 이동
-		try {
-			if(authentication.getPrincipal() != null) {
-				return "redirect:/";
-			}
-			// 로그인을 하지 않았다면 nullpointexception이 발생하고 login 페이지로 이동
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return "login";
-		}
-		
-		return "redirect:/";
+		return "login";
 		
 	}
 	
@@ -63,7 +50,26 @@ public class MemberController {
 		String result = memberService.join(memberVO);
 		model.addAttribute("message", result);
 		
-		return "home";
+		return "result";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "deleteAccount", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String deleteAccount(String userid, Authentication authentication) {
+		
+		if(authentication==null) {
+			return "로그인을 먼저 해주세요";
+		}
+	
+		String loginUserId = authentication.getName();
+		if(!loginUserId.equals(userid)) {
+			return "잘못 입력하셨습니다. 다시 입력해주세요.";
+		}
+		
+		String result = memberService.deleteMember(loginUserId);
+		
+		return result;
+		
 	}
 	
 	@ResponseBody
@@ -71,6 +77,8 @@ public class MemberController {
 	public String userDuplicateCheck(String userid) {
 		
 		boolean result = memberService.duplicateCheck(userid);
+		
+		log.debug("결과 값 " + result);
 		
 		if(result) {
 			return "OK";

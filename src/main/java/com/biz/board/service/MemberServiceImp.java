@@ -54,9 +54,12 @@ public class MemberServiceImp implements MemberService{
 		MemberVO memberVO = memberDao.read(userid);
 		
 		if(memberVO == null) {
+			
+			log.debug("TRUE 값");
 			return true;
 		}
 		
+		log.debug("FLASE 값");
 		return false;
 	}
 	
@@ -115,6 +118,14 @@ public class MemberServiceImp implements MemberService{
 		List<MemberVO> selectList = memberDao.selectList(pageVO.getOffset(), pageVO.getLimit(), search, option, sort);
 		
 		return selectList;
+	}
+	@Override
+	public String deleteMember(String userid) {
+		// TODO Auto-generated method stub
+		
+		memberDao.deleteMember(userid);
+		
+		return "OK";
 	}
 
 

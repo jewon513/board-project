@@ -74,5 +74,11 @@
 			#{userpw}
 		)
 	</insert>
+	
+	<delete id="deleteMember">
+		DELETE
+		FROM bbs_user
+		WHERE userid = #{userid}
+	</delete>
 
 </mapper>

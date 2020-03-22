@@ -74,7 +74,6 @@
 					<input class="form-control border border-secondary" type="password" placeholder="Password" name="password" id="password">
 				</div>
 				<div class="form-group text-danger">
-					<small>${error}</small><br>
 					<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 						<small>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</small>
 						<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />

@@ -18,11 +18,9 @@
 		<security:intercept-url pattern="/delete" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/image_up" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/recommend" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/idCheck" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/myInfo" access="isAuthenticated()"/>
 		
 		<security:intercept-url pattern="/comment/**" access="isAuthenticated()"/>
-		
 		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
 		
 		

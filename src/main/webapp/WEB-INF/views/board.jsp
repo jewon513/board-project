@@ -23,6 +23,22 @@
 			document.location.href = '${rootPath}/detail?number=' + id
 
 		})
+		
+		
+		$("#search").keypress(function(key){
+			
+			if(key.keyCode==13){
+				
+				let keyword = $("#search").val()
+				
+				if($.trim(keyword) == ""){
+					
+					return false;
+				}
+				
+			}
+			
+		})
 	})
 </script>
 
@@ -99,7 +115,7 @@
 			 		<option class="form-control" value="subject">제목</option>
 			 		<option class="form-control" value="writer">작성자</option>
 			 	</select>
-				<input class="form-control col-6 border" placeholder="search" name="search">
+				<input class="form-control col-6 border" placeholder="search" name="search" id="search">
 			</form>
 		</div>
 		

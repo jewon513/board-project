@@ -16,15 +16,8 @@
 	<!-- Navigation -->
 	<%@ include file="/WEB-INF/views/inlcude/include-navigation.jsp"%>
 
-	<div class="container mb-5">
-		<h2>Error Page</h2>
-		<hr>		
-		<h3>Failed URL : ${url}</h3>
-		<h3>${exception.message}</h3>
-		<hr>
-		<c:forEach items="${exception.stackTrace}" var="ste">
-			${ste}
-		</c:forEach>
+	<div class="container text-center">
+		<h3 class="m-3">${message}</h3>
 	</div>
 
 </body>

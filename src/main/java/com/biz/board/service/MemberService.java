@@ -20,6 +20,9 @@ public interface MemberService {
 	public boolean duplicateCheck(String userid);
 
 
+	public String deleteMember(String userid);
+
+
 	
 
 

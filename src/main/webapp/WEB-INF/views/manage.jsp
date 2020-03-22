@@ -82,7 +82,7 @@
 		
 		<div class="d-flex justify-content-center">
 			<form class="form-group">
-				<input class="form-control border" placeholder="ID로 검색..." name="search">
+				<input class="form-control border" placeholder="ID로 검색..." name="search" id="search">
 			</form>
 		</div>
 
@@ -99,6 +99,21 @@
 		}else{
 			$("#${option}").append("<i class='fas fa-angle-down ml-2'></i>")
 		}
+		
+		$("#search").keypress(function(key){
+			
+			if(key.keyCode==13){
+				
+				let keyword = $("#search").val()
+				
+				if($.trim(keyword) == ""){
+					
+					return false;
+				}
+				
+			}
+			
+		})
 		
 
 		$(".userRow").click(function() {

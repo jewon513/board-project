@@ -22,8 +22,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		MemberVO memberVO = memberDao.read(username);
 		
-		// TODO Auto-generated method stub
-		return memberVO == null ? null : new CustomMember(memberVO);
+		if(memberVO == null) {
+			throw new UsernameNotFoundException(username + "is not found");
+		}
+		
+		return new CustomMember(memberVO);
 		
 	}
 

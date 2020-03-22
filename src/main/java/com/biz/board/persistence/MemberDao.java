@@ -16,6 +16,7 @@ public interface MemberDao {
 	public List<MemberVO> selectList(@Param("offset") int offset, @Param("limit") int limit, @Param("search") String search, @Param("option") String option, @Param("sort") String sort);
 	public void updateUserEnabled(MemberVO memberVO);
 	public int getTotalCount(String search);
+	public void deleteMember(String userid);
 	
 	
 }

@@ -84,9 +84,23 @@
 			
 		}
 		
-		$(".btn-list").click(function(){
+		$(".btn-save").click(function(){
 			
-			document.location.href = "${rootPath}/list"
+			let b_subject = $("#b_subject").val()
+			let b_content = $("#b_content").val()
+			
+			if(b_subject == ""){
+				alert("제목을 입력해주세요.")
+				return false;
+			}
+			
+			if(b_content == ""){
+				alert("본문을 입력해주세요")
+				return false;
+			}
+			
+			
+			$("#write-form").submit()
 			
 		})
 		
@@ -117,7 +131,7 @@
 				<form:textarea class="form-control border" path="b_content"></form:textarea>
 			</div>
 			<div class="d-flex justify-content-end">
-				<button class="btn btn-primary btn-save">저장</button>
+				<button class="btn btn-primary btn-save" type="button">저장</button>
 			</div>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form:form>

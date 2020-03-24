@@ -1,5 +1,8 @@
 package com.biz.board.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.biz.board.domain.AuthVO;
+import com.biz.board.domain.CustomMember;
 import com.biz.board.domain.MemberVO;
 import com.biz.board.service.MemberService;
 
@@ -59,6 +64,17 @@ public class MemberController {
 		
 		if(authentication==null) {
 			return "로그인을 먼저 해주세요";
+		}
+		
+		CustomMember cm = (CustomMember) authentication.getPrincipal();
+		
+		MemberVO memberVO = cm.getMemberVO();
+		List<AuthVO> authList = memberVO.getAuthList();
+		List<String> strAuthList = new ArrayList<String>();
+		
+		authList.forEach(vo -> strAuthList.add(vo.getAuth()));
+		if(strAuthList.contains("ROLE_ADMIN")) {
+			return "관리자는 탈퇴가 불가능합니다.";
 		}
 	
 		String loginUserId = authentication.getName();

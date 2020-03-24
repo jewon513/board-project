@@ -26,7 +26,9 @@
 		<p>회원가입 날짜 : <sec:authentication property="principal.memberVO.reg_date"/></p>
 		<p>마지막 로그인 날짜 : <sec:authentication property="principal.memberVO.update_date"/></p>
 		<hr/>
-		<button class="btn btn-danger" data-toggle="modal" data-target="#delete-user">회원탈퇴</button>
+		<div class="d-flex justify-content-end">
+			<button class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete-user">회원탈퇴</button>
+		</div>
 		
 		
 		
@@ -66,6 +68,18 @@
 		
 		$(".btn-delete-user").click(function(){
 		
+			deleteUser()
+			
+		})
+		
+		$("#inputUserDelete").keydown(function(key){
+			if(key.keyCode == 13){
+				deleteUser()
+			}
+		})
+		
+		function deleteUser(){
+			
 			let userid = $("#inputUserDelete").val()
 			
 			$.ajax({
@@ -89,8 +103,7 @@
 				
 			})
 			
-			
-		})
+		}
 		
 		function logout () {
 			

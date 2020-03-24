@@ -34,14 +34,22 @@ public class MemberServiceImp implements MemberService{
 	@Transactional
 	@Override
 	public String join(MemberVO memberVO) {
-
+		
+		if(memberVO.getUserid().equals("ADMIN")) {
+			memberVO.setUserpw(bCryptPasswordEncoder.encode(memberVO.getUserpw()));
+			memberDao.insert(memberVO);
+			AuthVO authVO = AuthVO.builder().userid(memberVO.getUserid()).auth("ROLE_ADMIN").build();
+			authDao.insert(authVO);
+			authVO.setAuth("ROLE_MEMBER");
+			authDao.insert(authVO);
+			
+			return "관리자로 회원가입이 완료되었습니다.";
+		}
+		
 		memberVO.setUserpw(bCryptPasswordEncoder.encode(memberVO.getUserpw()));
 		memberDao.insert(memberVO);
-		
-		
 		AuthVO authVO = AuthVO.builder().userid(memberVO.getUserid()).auth("ROLE_MEMBER").build();
 		authDao.insert(authVO);
-			
 		return "회원가입이 정상적으로 완료되었습니다.";
 		
 	

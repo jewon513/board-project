@@ -127,7 +127,7 @@
 					data : {id:id},
 					success : function(result){
 						
-						alert(result)
+						alert("글이 삭제되었습니다.")
 						
 						document.location.href ="${rootPath}/list"
 						
@@ -189,7 +189,7 @@
 				type : 'POST',
 				success : function(result){
 					
-					alert(result)
+					alert("댓글이 삭제되었습니다.")
 					getCommentList()
 					
 				},
